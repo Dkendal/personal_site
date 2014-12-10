@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/bradleyd/skeleton-rails.git
+  revision: 7bddea0b92dd8ae88b48e8c409677d188980203a
+  branch: update-version
+  specs:
+    skeleton-rails (1.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -128,6 +135,7 @@ DEPENDENCIES
   jquery-rails
   rails (= 4.1.8)
   sass-rails (~> 4.0.3)
+  skeleton-rails!
   slim
   spring
   turbolinks

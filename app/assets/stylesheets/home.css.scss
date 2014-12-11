@@ -1,7 +1,4 @@
-@mixin set-color($color) {
-  background-color: $color;
-  color: tint($color, 90%);
-}
+$contact-bg-color: hsl(164, 41%, 50%);
 
 h1, h2, h3, h4, h5, h6 {
   font-family: "brandon-grotesque";
@@ -12,9 +9,16 @@ html {
   height: 100%;
 }
 
+body, p, a, html {
+  font-family: "minion-pro";
+}
+
 body {
   height: 100%;
-  font-family: "minion-pro";
+}
+
+a {
+  color: inherit;
 }
 
 .heading-divider {
@@ -28,6 +32,9 @@ body {
 
 .intro-first-line {
   margin-top: calc(50% - 1em);
+}
+
+.intro-second-line {
 }
 
 .section-heading {
@@ -60,24 +67,40 @@ body {
 .projects {
 }
 
-.contact {
-  $bg-color: darkgrey;
+.corner {
+  $height: 8rem;
+  height: $height;
+  margin-top: -$height;
+  fill: $contact-bg-color;
+  background-color: transparent;
+}
 
-  background-color: $bg-color;
-  color: tint($bg-color, 90%);
+.dropped.corner {
+  margin-top: 0;
+  transform: rotate(180deg);
+}
+
+.contact {
+  padding-bottom: golden-ratio(8rem, 0);
+  background-color: $contact-bg-color;
+  color: tint($contact-bg-color, 90%);
 
   .btn-fancy {
     display: inline-block;
-    font-size: 8rem;
+    font-size: 3rem;
     margin-right: 1em;
     margin-left: 1em;
 
     a {
-      color: shade($bg-color, 30%);
+      color: shade($contact-bg-color, 40%);
 
       &:hover {
-        color: tint($bg-color, 30%);
+        color: tint($contact-bg-color, 50%);
       }
     }
   }
+}
+
+.footer-body {
+  font-size: 1rem;
 }

@@ -21,6 +21,10 @@ a {
   color: inherit;
 }
 
+.init-hidden {
+  opacity: 0;
+}
+
 .heading-divider {
   border-top-width: 3px;
   margin: 1.5rem 0;
@@ -30,15 +34,19 @@ a {
   text-align: center;
 }
 
-.intro-first-line {
-  margin-top: calc(50% - 1em);
-}
-
-.intro-second-line {
-}
-
 .section-heading {
   text-align: center;
+}
+
+$skew-ang: 5deg;
+
+.skew {
+  @include transform(skewY($skew-ang));
+  @include transform-origin(bottom right);
+}
+
+.skew-offset {
+  @include transform(skewY(-$skew-ang));
 }
 
 .intro {
@@ -51,33 +59,22 @@ a {
   background-position: top center;
   background-repeat: no-repeat;
   background-size: cover;
-  @include background-image(linear-gradient($top-grad, $mid-grad, $bot-grad), image-url("banner2.jpg"));
-}
 
-.frontend {
+  @include background-image(linear-gradient($top-grad, $mid-grad, $bot-grad), image-url("banner2.jpg"));
+
+  .container {
+    z-index: 1; // put above skewed portion
+    padding-bottom: 4rem;
+    @include transform(translateY(40%));
+  }
 }
 
 .section {
   min-height: 100%;
 }
 
-.backend {
-}
-
-.projects {
-}
-
-.corner {
-  $height: 8rem;
-  height: $height;
-  margin-top: -$height;
-  fill: $contact-bg-color;
-  background-color: transparent;
-}
-
-.dropped.corner {
-  margin-top: 0;
-  transform: rotate(180deg);
+.btn-scroll-down {
+  cursor: pointer;
 }
 
 .contact {

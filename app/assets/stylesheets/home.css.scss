@@ -1,3 +1,83 @@
-// Place all the styles related to the home controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@mixin set-color($color) {
+  background-color: $color;
+  color: tint($color, 90%);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "brandon-grotesque";
+}
+
+html {
+  font-size: 14px;
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  font-family: "minion-pro";
+}
+
+.heading-divider {
+  border-top-width: 3px;
+  margin: 1.5rem 0;
+}
+
+.social-links {
+  text-align: center;
+}
+
+.intro-first-line {
+  margin-top: calc(50% - 1em);
+}
+
+.section-heading {
+  text-align: center;
+}
+
+.intro {
+  $top-grad: transparent;
+  $mid-grad: hsla(0, 0, 0%, 0.6);
+  $bot-grad: hsla(0, 0, 0%, 0.3);
+
+  color: white;
+  background-attachment: fixed;
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  @include background-image(linear-gradient($top-grad, $mid-grad, $bot-grad), image-url("banner2.jpg"));
+}
+
+.frontend {
+}
+
+.section {
+  min-height: 100%;
+}
+
+.backend {
+}
+
+.projects {
+}
+
+.contact {
+  $bg-color: darkgrey;
+
+  background-color: $bg-color;
+  color: tint($bg-color, 90%);
+
+  .btn-fancy {
+    display: inline-block;
+    font-size: 8rem;
+    margin-right: 1em;
+    margin-left: 1em;
+
+    a {
+      color: shade($bg-color, 30%);
+
+      &:hover {
+        color: tint($bg-color, 30%);
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+@font-face {
+  font-family:"brandon-grotesque";
+  src: font-url("brandon-grotesque-light.woff");
+  font-style:normal;font-weight:300;
+}
+@font-face {
+  font-family:"brandon-grotesque";
+  src: font-url("brandon-grotesque-med.woff");
+  font-style:normal;font-weight:700;
+}
+@font-face {
+  font-family:"minion-pro";
+  src: font-url("minion-pro.woff");
+  font-style:normal;font-weight:400;
+}

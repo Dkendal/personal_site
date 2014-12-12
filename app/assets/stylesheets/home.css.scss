@@ -34,19 +34,26 @@ a {
   text-align: center;
 }
 
+.section-flare {
+  $height: 100px;
+  display: block;
+  height: $height;
+  width: 100%;
+
+  path {
+    fill: $contact-bg-color;
+  }
+
+  &.flare-top {
+    margin-top: -$height;
+  }
+
+  &.flare-bottom {
+  }
+}
+
 .section-heading {
   text-align: center;
-}
-
-$skew-ang: 5deg;
-
-.skew {
-  @include transform(skewY($skew-ang));
-  @include transform-origin(bottom right);
-}
-
-.skew-offset {
-  @include transform(skewY(-$skew-ang));
 }
 
 .intro {
@@ -63,9 +70,8 @@ $skew-ang: 5deg;
   @include background-image(linear-gradient($top-grad, $mid-grad, $bot-grad), image-url("banner2.jpg"));
 
   .container {
-    z-index: 1; // put above skewed portion
+    padding-top: 10rem;
     padding-bottom: 4rem;
-    @include transform(translateY(40%));
   }
 }
 
@@ -75,6 +81,8 @@ $skew-ang: 5deg;
 
 .btn-scroll-down {
   cursor: pointer;
+  position: relative;
+  bottom: 70px;
 }
 
 .contact {

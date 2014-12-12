@@ -92,15 +92,34 @@ a {
 
   .btn-fancy {
     display: inline-block;
+    position: relative;
     font-size: 3rem;
     margin-right: 1em;
     margin-left: 1em;
+
+    .spinning-hover {
+      position: absolute;
+      top: 50%;
+      overflow:visible !important;
+      @include transform(translate(0, -50%) scale(2));
+      path {
+        fill: none;
+        stroke-width: 30px;
+        stroke: $contact-bg-color;
+      }
+    }
 
     a {
       color: shade($contact-bg-color, 40%);
 
       &:hover {
+        @include transition(color, 0.3s ease-in-out);
+
         color: tint($contact-bg-color, 50%);
+        path {
+          @include transition(stroke, .3s linear);
+          stroke: tint($contact-bg-color, 40%);
+        }
       }
     }
   }

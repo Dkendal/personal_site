@@ -1,57 +1,64 @@
-scrollTo = (str) ->
-  $('html, body').animate({scrollTop: $(str).offset().top}, 500, "linear")
+a = 0
+redraw = {}
+pi = Math.PI
 
-introAnim = (name) -> $("[data-anim='intro-#{name}']")
+introAnim = (name) ->
+  $("[data-anim='intro-#{name}']")
 
-$.fn.chain = (callback) ->
-  @.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', callback)
+animate = (animName) -> ($elm) ->
+    $elm.addClass("animated #{animName}")
 
-$ ->
-  $name = introAnim "name"
-  $bar = introAnim "bar"
-  $sub = introAnim "sub"
+fadeInUp = animate 'fadeInUp'
+fadeIn = animate 'fadeIn'
 
-  $name.addClass("animated fadeIn")
-
-  window.setTimeout ( -> $bar.addClass("animated fadeInUp") ), 300
-  window.setTimeout ( -> $sub.addClass("animated fadeInUp") ), 400
-
-
-  time = 300
-  a = 0
-  pi = Math.PI
-  fps = 1e3 / 30
-  radius = 115
-  step = fps * 360/time
-  redraw = {}
-
-  erase = ->
+erase = ( path ) -> () ->
     window.clearTimeout redraw
-    this.setAttribute "d", ''
+    path.setAttribute "d", ''
     a = 0
 
-  draw = ->
+drawArc = (time, fps, radius, step) -> ( path ) ->
+  boundDrawArc = () ->
     a += step
-    last = a >= 360
-    if last
-      a = 359.9
+    lastSegment = a >= 360
+
+    if lastSegment
+      a = 359.9 # setting this to 360 will make no circle.
+
     r = (a * pi / 180)
     x = Math.sin(r) * radius
     y = Math.cos(r) * -radius
 
     mid = if (a > 180) then 1 else 0
     anim = "M 0 -#{radius} A #{radius} #{radius} 0 #{mid} 1 #{x} #{y}"
-    if last
+
+    if lastSegment
       anim += " z"
 
-    this.setAttribute "d", anim
-    unless last
-      redraw = setTimeout draw.bind(@), fps
+    path.setAttribute "d", anim
+
+    unless lastSegment
+      redraw = setTimeout boundDrawArc, fps
+
+main = ->
+  time = 300
+  fps = 1e3 / 30
+  radius = 115
+  step = fps * 360/time
+
+  hiButton = drawArc(time, fps, radius, step)
+
+  $name = introAnim "name"
+  $bar = introAnim "bar"
+  $sub = introAnim "sub"
+
+  fadeIn $name
+
+  setTimeout -> fadeInUp $bar, 300
+  setTimeout -> fadeInUp $sub, 400
 
   $('[data-fancy-hover]').each ->
     path = $(@).find('path')[0]
-    $(@).mouseenter draw.bind(path)
-    $(@).mouseleave erase.bind(path)
+    $(@).mouseenter hiButton path
+    $(@).mouseleave erase path
 
-  for item in $('[data-scroll]').get()
-    $(item).click -> scrollTo $(item).data("scroll")
+$ -> main()

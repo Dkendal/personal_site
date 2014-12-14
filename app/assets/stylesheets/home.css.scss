@@ -103,7 +103,7 @@ a {
       @include transform(translate(0, -50%));
       path {
         fill: none;
-        stroke-width: 30px;
+        stroke-width: 15px;
         stroke: $contact-bg-color;
       }
     }

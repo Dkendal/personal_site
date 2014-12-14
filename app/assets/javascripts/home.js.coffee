@@ -6,47 +6,43 @@ introAnim = (name) ->
   $("[data-anim='intro-#{name}']")
 
 animate = (animName) -> ($elm) ->
-    $elm.addClass("animated #{animName}")
+  $elm.addClass("animated #{animName}")
 
 fadeInUp = animate 'fadeInUp'
 fadeIn = animate 'fadeIn'
 
 erase = ( path ) -> () ->
-    window.clearTimeout redraw
-    path.setAttribute "d", ''
-    a = 0
+  window.clearTimeout redraw
+  path.setAttribute "d", ''
+  a = 0
 
-drawArc = (time, fps, radius, step) -> ( path ) ->
-  boundDrawArc = () ->
-    a += step
-    lastSegment = a >= 360
+drawArc = (time, radius) ->
+  fps = 1e3 / 30
+  step = fps * 360/time
+  ( path ) ->
+    boundDrawArc = () ->
+      a += step
+      lastSegment = a >= 360
 
-    if lastSegment
-      a = 359.9 # setting this to 360 will make no circle.
+      if lastSegment
+        a = 359.9 # setting this to 360 will make no circle.
 
-    r = (a * pi / 180)
-    x = Math.sin(r) * radius
-    y = Math.cos(r) * -radius
+      r = (a * pi / 180)
+      x = Math.sin(r) * radius
+      y = Math.cos(r) * -radius
 
-    mid = if (a > 180) then 1 else 0
-    anim = "M 0 -#{radius} A #{radius} #{radius} 0 #{mid} 1 #{x} #{y}"
+      mid = if (a > 180) then 1 else 0
+      anim = "M 0 -#{radius} A #{radius} #{radius} 0 #{mid} 1 #{x} #{y}"
 
-    if lastSegment
-      anim += " z"
+      if lastSegment
+        anim += " z"
 
-    path.setAttribute "d", anim
+      path.setAttribute "d", anim
 
-    unless lastSegment
-      redraw = setTimeout boundDrawArc, fps
+      unless lastSegment
+        redraw = setTimeout boundDrawArc, fps
 
 main = ->
-  time = 400
-  fps = 1e3 / 30
-  radius = 115
-  step = fps * 360/time
-
-  hiButton = drawArc(time, fps, radius, step)
-
   $name = introAnim "name"
   $bar = introAnim "bar"
   $sub = introAnim "sub"
@@ -58,6 +54,6 @@ main = ->
 
   $('[data-fancy-hover]').each ->
     path = $(@).find('path')[0]
-    $(@).hover hiButton(path), erase(path)
+    $(@).hover drawArc(400, 60)(path), erase(path)
 
 $ -> main()

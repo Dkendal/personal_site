@@ -40,7 +40,7 @@ drawArc = (time, fps, radius, step) -> ( path ) ->
       redraw = setTimeout boundDrawArc, fps
 
 main = ->
-  time = 300
+  time = 400
   fps = 1e3 / 30
   radius = 115
   step = fps * 360/time
@@ -58,7 +58,6 @@ main = ->
 
   $('[data-fancy-hover]').each ->
     path = $(@).find('path')[0]
-    $(@).mouseenter hiButton path
-    $(@).mouseleave erase path
+    $(@).hover hiButton(path), erase(path)
 
 $ -> main()

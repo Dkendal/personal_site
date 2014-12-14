@@ -93,15 +93,14 @@ a {
   .btn-fancy {
     display: inline-block;
     position: relative;
-    font-size: 3rem;
-    margin-right: 1em;
-    margin-left: 1em;
+    margin: 0 1rem;
 
     .spinning-hover {
       position: absolute;
       top: 50%;
+      left: 0;
       overflow:visible !important;
-      @include transform(translate(0, -50%) scale(2));
+      @include transform(translate(0, -50%));
       path {
         fill: none;
         stroke-width: 30px;
@@ -109,7 +108,16 @@ a {
       }
     }
 
+    .fa {
+      height: 6rem;
+      line-height: 5.5rem;
+      vertical-align: middle;
+    }
+
     a {
+      font-size: 4rem;
+      width: 6rem;
+      display:inline-block;
       color: shade($contact-bg-color, 40%);
 
       &:hover {
